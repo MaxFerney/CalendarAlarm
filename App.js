@@ -1,15 +1,40 @@
 import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { Platform, StyleSheet, Text, View } from 'react-native';
+import * as Location from 'expo-location';
 
 export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>we need more work App.js to start working on your app! beep boop</Text>
-      <Text>reeeeeeeeeeeee</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
+    const [location, setLocation] = useState(null);
+    const [errorMsg, setErrorMsg] = useState(null);
+
+
+    useEffect(() => {
+        (async () => {
+              let { status } = await Location.requestPermissionsAsync();
+              if (status !== 'granted') {
+                    setErrorMsg('Permission to access location was denied');
+                    return;
+              }
+
+              let location = await Location.getCurrentPositionAsync({});
+              setLocation(location);
+        })();
+    }, []);
+
+    let textMessage = "gimme a min...";
+    if (errorMsg) {
+        textMessage = errorMsg;
+    } else if (location) {
+        textMessage = JSON.stringify(location);
+    }
+    return (
+        <View style={styles.container}>
+            <Text>IN DEVELOPMENT!!</Text>
+            <Text>Where ya at?</Text>
+            <Text>{textMessage}</Text>
+            <StatusBar style="auto" />
+        </View>
+    );
 }
 
 const styles = StyleSheet.create({
