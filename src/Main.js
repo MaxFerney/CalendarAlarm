@@ -1,19 +1,11 @@
-
-// import React from 'react';
-// import Main from './src/Main';
-
-// const App = () => (
-//     <Main />
-// );
-// export default App
 import { StatusBar } from 'expo-status-bar';
 import React, { useState, useEffect } from 'react';
 import { Platform, StyleSheet, Text, View } from 'react-native';
 import * as Location from 'expo-location';
 
-import styles from './src/components/styles/styles.js';
+import styles from './components/styles/MainStyle.js';
 
-export default function App() {
+export default function Main() {
     const [location, setLocation] = useState(null);
     const [errorMsg, setErrorMsg] = useState(null);
 
